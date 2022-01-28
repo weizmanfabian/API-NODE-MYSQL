@@ -1,0 +1,2 @@
+#Ingnorando todos los node_modules en cualquier directorio
+**/node_modules/*

@@ -1,0 +1,26 @@
+//  COMENTARIO CRUD DESDE TERMINAL. Ext: REST Client. Instalar en visual studio code.
+// crear archivo de prueba con la extension .http
+
+###
+GET http://localhost:5000/server/searchBy/usu/usu_id/545704
+
+###
+POST http://localhost:5000/server/create/rol HTTP/1.1
+Content-Type: application/json
+
+{  
+  "rol_nom": "two Rol",
+  "rol_dscr": "Prueba 2"
+}
+
+###
+PUT  http://localhost:5000/server/update/rol/rol_id/234 HTTP/1.1
+content-type: application/json
+
+{
+  "rol_nom": "two Rol",
+  "rol_dscr": "Prueba two"
+}
+
+###
+DELETE http://localhost:5000/server/delete/rol/rol_id/233 HTTP/1.1
