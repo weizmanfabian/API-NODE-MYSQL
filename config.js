@@ -1,13 +1,13 @@
-//poner en true cuando se haga push al igual que ./client/resources/config/config
+
 // const production = true;
 const production = false;
 
 module.exports = {
   connectionDataBase: {
-    user: "baq",
+    user: "root",
     host: "localhost",
     // host: "10.255.255.25",
-    password: "Asiste.2021",
+    password: "",
     database: "newnet",
   },
   portServer: 5000,
