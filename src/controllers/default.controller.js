@@ -36,19 +36,19 @@ exports.delete = (req, res) => {
         console.log(
           err
             ? "Error DELETE FROM " +
-                req.params.tabla +
-                " WHERE " +
-                req.params.name +
-                " = " +
-                req.params.value +
-                " " +
-                err
+            req.params.tabla +
+            " WHERE " +
+            req.params.name +
+            " = " +
+            req.params.value +
+            " " +
+            err
             : req.params.tabla +
-                "." +
-                req.params.name +
-                " = " +
-                req.params.value +
-                " remove successfull!"
+            "." +
+            req.params.name +
+            " = " +
+            req.params.value +
+            " remove successfull!"
         );
         res.json(err ? { err: msg.errDelete } : { msg: msg.delete });
       }
@@ -66,38 +66,38 @@ exports.searchBy = (req, res) => {
     if (err) return res.send(err);
     conn.query(
       "SELECT * FROM " +
-        req.params.tabla +
-        " WHERE " +
-        req.params.name +
-        " = ?",
+      req.params.tabla +
+      " WHERE " +
+      req.params.name +
+      " = ?",
       [req.params.value],
       (err, rows) => {
         console.log(
           err
             ? "Err SELECT * FROM " +
-                req.params.tabla +
-                " WHERE " +
-                req.params.name +
-                " = " +
-                req.params.value +
-                " " +
-                err
+            req.params.tabla +
+            " WHERE " +
+            req.params.name +
+            " = " +
+            req.params.value +
+            " " +
+            err
             : "SELECT * FROM " +
-                req.params.tabla +
-                " WHERE " +
-                req.params.name +
-                " = " +
-                req.params.value +
-                " results: " +
-                rows.length
+            req.params.tabla +
+            " WHERE " +
+            req.params.name +
+            " = " +
+            req.params.value +
+            " results: " +
+            rows.length
         );
         msg.get.title = err
           ? "Ha ocurrido un error al consultar los datos."
           : rows.length == 0
-          ? "Sin resultados"
-          : rows.length == 1
-          ? rows.length + " resultado"
-          : rows.length + " resultados";
+            ? "Sin resultados"
+            : rows.length == 1
+              ? rows.length + " resultado"
+              : rows.length + " resultados";
 
         msg.get.icon = err ? "error" : "info";
 
@@ -134,94 +134,94 @@ exports.searchByDate = (req, res) => {
     req.params.adicional1 != 1
       ? ""
       : " AND " +
-        req.params.nameAdicional1 +
-        " " +
-        req.params.type1 +
-        (req.params.type1 === "LIKE" ? " '%" : " '") +
-        req.params.valueAdicional1 +
-        (req.params.type1 === "LIKE" ? "%'" : "'");
+      req.params.nameAdicional1 +
+      " " +
+      req.params.type1 +
+      (req.params.type1 === "LIKE" ? " '%" : " '") +
+      req.params.valueAdicional1 +
+      (req.params.type1 === "LIKE" ? "%'" : "'");
   let newSql2 =
     req.params.adicional2 != 1
       ? ""
       : " AND " +
-        req.params.nameAdicional2 +
-        " " +
-        req.params.type2 +
-        (req.params.type2 === "LIKE" ? " '%" : " '") +
-        req.params.valueAdicional2 +
-        (req.params.type2 === "LIKE" ? "%'" : "'");
+      req.params.nameAdicional2 +
+      " " +
+      req.params.type2 +
+      (req.params.type2 === "LIKE" ? " '%" : " '") +
+      req.params.valueAdicional2 +
+      (req.params.type2 === "LIKE" ? "%'" : "'");
   let newSql3 =
     req.params.adicional3 != 1
       ? ""
       : " AND " +
-        req.params.nameAdicional3 +
-        " " +
-        req.params.type3 +
-        (req.params.type3 === "LIKE" ? " '%" : " '") +
-        req.params.valueAdicional3 +
-        (req.params.type3 === "LIKE" ? "%'" : "'");
+      req.params.nameAdicional3 +
+      " " +
+      req.params.type3 +
+      (req.params.type3 === "LIKE" ? " '%" : " '") +
+      req.params.valueAdicional3 +
+      (req.params.type3 === "LIKE" ? "%'" : "'");
   let newSql4 =
     req.params.adicional4 != 1
       ? ""
       : " AND " +
-        req.params.nameAdicional4 +
-        " " +
-        req.params.type4 +
-        (req.params.type4 === "LIKE" ? " '%" : " '") +
-        req.params.valueAdicional4 +
-        (req.params.type4 === "LIKE" ? "%'" : "'");
+      req.params.nameAdicional4 +
+      " " +
+      req.params.type4 +
+      (req.params.type4 === "LIKE" ? " '%" : " '") +
+      req.params.valueAdicional4 +
+      (req.params.type4 === "LIKE" ? "%'" : "'");
   req.getConnection((err, conn) => {
     conn.query(
       "SELECT * FROM " +
-        req.params.tabla +
-        " WHERE " +
-        req.params.nameFecha +
-        " BETWEEN ? AND ?" +
-        newSql1 +
-        newSql2 +
-        newSql3 +
-        newSql4,
+      req.params.tabla +
+      " WHERE " +
+      req.params.nameFecha +
+      " BETWEEN ? AND ?" +
+      newSql1 +
+      newSql2 +
+      newSql3 +
+      newSql4,
       [req.params.fechaIni, req.params.fechaFin],
       (err, rows) => {
         console.log(
           err
             ? "Err SELECT * FROM " +
-                req.params.tabla +
-                " WHERE " +
-                req.params.nameFecha +
-                " BETWEEN " +
-                req.params.fechaIni +
-                " AND " +
-                req.params.fechaFin +
-                newSql1 +
-                newSql2 +
-                newSql3 +
-                newSql4 +
-                " " +
-                err
+            req.params.tabla +
+            " WHERE " +
+            req.params.nameFecha +
+            " BETWEEN " +
+            req.params.fechaIni +
+            " AND " +
+            req.params.fechaFin +
+            newSql1 +
+            newSql2 +
+            newSql3 +
+            newSql4 +
+            " " +
+            err
             : "SELECT * FROM " +
-                req.params.tabla +
-                " WHERE " +
-                req.params.nameFecha +
-                " BETWEEN " +
-                req.params.fechaIni +
-                " AND " +
-                req.params.fechaFin +
-                newSql1 +
-                newSql2 +
-                newSql3 +
-                newSql4 +
-                " Results: " +
-                rows.length
+            req.params.tabla +
+            " WHERE " +
+            req.params.nameFecha +
+            " BETWEEN " +
+            req.params.fechaIni +
+            " AND " +
+            req.params.fechaFin +
+            newSql1 +
+            newSql2 +
+            newSql3 +
+            newSql4 +
+            " Results: " +
+            rows.length
         );
 
         msg.get.title = err
           ? "Ha ocurrido un error al consultar los datos."
           : rows.length == 0
-          ? "Sin resultados"
-          : rows.length == 1
-          ? rows.length + " resultado"
-          : rows.length + " resultados";
+            ? "Sin resultados"
+            : rows.length == 1
+              ? rows.length + " resultado"
+              : rows.length + " resultados";
 
         msg.get.icon = err ? "error" : "info";
 
@@ -247,13 +247,13 @@ exports.update = (req, res) => {
         console.log(
           err
             ? "Err UPDATE " +
-                req.params.tabla +
-                " set ? WHERE " +
-                req.params.name +
-                " = " +
-                req.params.value +
-                " " +
-                err
+            req.params.tabla +
+            " set ? WHERE " +
+            req.params.name +
+            " = " +
+            req.params.value +
+            " " +
+            err
             : req.params.tabla + " Update!"
         );
         res.json(err ? { err: msg.errUpdate } : { msg: msg.update });
@@ -275,10 +275,10 @@ exports.getData = (req, res) => {
       msg.get.title = err
         ? "Ha ocurrido un error al consultar los datos."
         : result.length == 0
-        ? "Sin resultados"
-        : result.length == 1
-        ? result.length + " resultado"
-        : result.length + " resultados";
+          ? "Sin resultados"
+          : result.length == 1
+            ? result.length + " resultado"
+            : result.length + " resultados";
 
       msg.get.icon = err ? "error" : "info";
 

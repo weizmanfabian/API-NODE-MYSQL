@@ -90,4 +90,5 @@ module.exports = {
 			toast.addEventListener('mouseleave', Swal.resumeTimer);
 		}
 	}
+
 };

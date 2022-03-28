@@ -18,17 +18,12 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-myconnection": "^1.0.4",
-    "express-session": "^1.17.2",
-    "fs": "0.0.1-security",
-    "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.3",
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.12",
     "path": "^0.12.7",
     "pug": "^3.0.2",
-    "rxjs": "^7.3.1",
-    "sequelize": "^6.7.0",
-    "util.promisify": "^1.1.1"
+    "sequelize": "^6.7.0"
   },
   "devDependencies": {
     "webpack": "^5.59.1",
