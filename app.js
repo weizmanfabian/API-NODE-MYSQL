@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const path = require("path")
 
 const myconn = require("express-myconnection");
 
@@ -21,8 +22,9 @@ app.use(express.static(path.join(__dirname, './public'))); // ruote public serve
 
 //Puerto
 app.set("port", portServer);
-app.listen(app.get("port"), () => {
-  console.log("server running on port", app.get("port"));
+app.listen(portServer, () => {
+  console.log("server running on port", portServer);
 });
 
+app.use("/auth", require("./src/routes/auth.route"))
 app.use("/server", require("./src/routes/default.route"));

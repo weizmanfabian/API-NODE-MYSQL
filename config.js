@@ -8,7 +8,7 @@ const connectionDataBase = {
   user: "root",
   host: "localhost",
   password: "",
-  database: "newnet",
+  database: "web",
 }
 
 const portServer = 5000;

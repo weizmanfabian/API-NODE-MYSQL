@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "7e8ac738-ef1a-4cde-8754-ccadd1445b91",
+		"name": "JWTMYSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17147091"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"weizman@gmail.com\",\r\n    \"pass\": 12345678\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMTA1MCwibm9tYnJlIjoiV2Vpem1hbiAiLCJhcGUiOiJDYXN0YcOxZWRhIiwiZW1haWwiOiJ3ZWl6bWFuQGdtYWlsLmNvbSIsInBhc3MiOiIxMjM0NTY3OCJ9LCJpYXQiOjE2ODE0Mjc5NzUsImV4cCI6MTY4MTQyODAwNX0.6sCXhZtwPSj74o0jOLZocuMYYASqsloYEwma58x1RKA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1\",\r\n    \"nombre\": \"Esteban\",\r\n    \"ape\": \"Herreño\",\r\n    \"email\": \"esteban@gmail.com\",\r\n    \"pass\": 12345678\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/server/create/:users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"server",
+						"create",
+						":users"
+					],
+					"variable": [
+						{
+							"key": "users",
+							"value": "users"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMTA1MCwibm9tYnJlIjoiV2Vpem1hbiAiLCJhcGUiOiJDYXN0YcOxZWRhIiwiZW1haWwiOiJ3ZWl6bWFuQGdtYWlsLmNvbSIsInBhc3MiOiIxMjM0NTY3OCJ9LCJpYXQiOjE2ODE0MjgxMTQsImV4cCI6MTY4MTQyODQxNH0.KZ7yT8WGdaX4hYG_xtfm7yUssmQwZDlS6koQHvCdsuk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/server/findAll/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"server",
+						"findAll",
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
