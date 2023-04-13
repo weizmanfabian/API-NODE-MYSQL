@@ -1,25 +1,34 @@
 const express = require("express");
-const msg = require("./msg.controller");
+const msg = require("./msgController");
+const jwt = require('jsonwebtoken');
+
 
 //----------------create----------------
 //parametros
 //tabla: para saber cual tabla afectará
 //body: todo el objeto que quiere insertar
 exports.create = (req, res) => {
-  req.getConnection((err, conn) => {
-    conn.query(
-      "INSERT INTO " + req.params.tabla + " set ?",
-      [req.body],
-      (err, rows) => {
-        console.log(
-          err
-            ? "Err INSERT INTO " + req.params.tabla + " " + err
-            : req.params.tabla + " added!"
+  //verificar si el token es valido
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      req.getConnection((err, conn) => {
+        conn.query(
+          "INSERT INTO " + req.params.tabla + " set ?",
+          [req.body],
+          (err, rows) => {
+            console.log(
+              err
+                ? "Err INSERT INTO " + req.params.tabla + " " + err
+                : req.params.tabla + " added!"
+            );
+            res.json(err ? { err: msg.errCreate } : { msg: msg.create });
+          }
         );
-        res.json(err ? { err: msg.errCreate } : { msg: msg.create });
-      }
-    );
-  });
+      });
+    }
+  })
 };
 
 //----------------delete----------------
@@ -28,32 +37,66 @@ exports.create = (req, res) => {
 //name: nombre del id o campo en la base de datos
 //value: valor del campo a eliminar ej(123)
 exports.delete = (req, res) => {
-  req.getConnection((err, conn) => {
-    conn.query(
-      "DELETE FROM " + req.params.tabla + " WHERE " + req.params.name + " = ?",
-      [req.params.value],
-      (err, rows) => {
-        console.log(
-          err
-            ? "Error DELETE FROM " +
-            req.params.tabla +
-            " WHERE " +
-            req.params.name +
-            " = " +
-            req.params.value +
-            " " +
-            err
-            : req.params.tabla +
-            "." +
-            req.params.name +
-            " = " +
-            req.params.value +
-            " remove successfull!"
+  //verificar si el token es valido
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      req.getConnection((err, conn) => {
+        conn.query(
+          "DELETE FROM " + req.params.tabla + " WHERE " + req.params.name + " = ?",
+          [req.params.value],
+          (err, rows) => {
+            console.log(
+              err
+                ? "Error DELETE FROM " +
+                req.params.tabla +
+                " WHERE " +
+                req.params.name +
+                " = " +
+                req.params.value +
+                " " +
+                err
+                : req.params.tabla +
+                "." +
+                req.params.name +
+                " = " +
+                req.params.value +
+                " remove successfull!"
+            );
+            res.json(err ? { err: msg.errDelete } : { msg: msg.delete });
+          }
         );
-        res.json(err ? { err: msg.errDelete } : { msg: msg.delete });
-      }
-    );
-  });
+      });
+    }
+  })
+
+};
+
+//----------------findAll----------------
+//parametros
+//tabla: para saber cual tabla afectará
+exports.findAll = (req, res) => {
+  //verificar si el token es valido
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      req.getConnection((err, conn) => {
+        conn.query(
+          `SELECT * FROM ${req.params.tabla}`,
+          (err, rows) => {
+            console.log(
+              err
+                ? `Err SELECT * FROM ${req.params.tabla}: ${err}`
+                : `${rows.length} results. SELECT * FROM ${req.params.tabla}`
+            );
+            res.json(err ? { err: msg.errCreate } : rows);
+          }
+        );
+      });
+    }
+  })
 };
 
 //----------------searchBy consulta por un valor en especifico----------------
@@ -62,49 +105,57 @@ exports.delete = (req, res) => {
 //name: nombre del campo a consultar en la base de datos
 //value: valor del campo a consultar ej(123)
 exports.searchBy = (req, res) => {
-  req.getConnection((err, conn) => {
-    if (err) return res.send(err);
-    conn.query(
-      "SELECT * FROM " +
-      req.params.tabla +
-      " WHERE " +
-      req.params.name +
-      " = ?",
-      [req.params.value],
-      (err, rows) => {
-        console.log(
-          err
-            ? "Err SELECT * FROM " +
-            req.params.tabla +
-            " WHERE " +
-            req.params.name +
-            " = " +
-            req.params.value +
-            " " +
-            err
-            : "SELECT * FROM " +
-            req.params.tabla +
-            " WHERE " +
-            req.params.name +
-            " = " +
-            req.params.value +
-            " results: " +
-            rows.length
+  //verificar si el token es valido
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      req.getConnection((err, conn) => {
+        if (err) return res.send(err);
+        conn.query(
+          "SELECT * FROM " +
+          req.params.tabla +
+          " WHERE " +
+          req.params.name +
+          " = ?",
+          [req.params.value],
+          (err, rows) => {
+            console.log(
+              err
+                ? "Err SELECT * FROM " +
+                req.params.tabla +
+                " WHERE " +
+                req.params.name +
+                " = " +
+                req.params.value +
+                " " +
+                err
+                : "SELECT * FROM " +
+                req.params.tabla +
+                " WHERE " +
+                req.params.name +
+                " = " +
+                req.params.value +
+                " results: " +
+                rows.length
+            );
+            msg.get.title = err
+              ? "Ha ocurrido un error al consultar los datos."
+              : rows.length == 0
+                ? "Sin resultados"
+                : rows.length == 1
+                  ? rows.length + " resultado"
+                  : rows.length + " resultados";
+
+            msg.get.icon = err ? "error" : "info";
+
+            res.json(err ? { err: msg.get } : { rows: rows, msg: msg.get });
+          }
         );
-        msg.get.title = err
-          ? "Ha ocurrido un error al consultar los datos."
-          : rows.length == 0
-            ? "Sin resultados"
-            : rows.length == 1
-              ? rows.length + " resultado"
-              : rows.length + " resultados";
+      });
+    }
+  })
 
-        msg.get.icon = err ? "error" : "info";
-
-        res.json(err ? { err: msg.get } : { rows: rows, msg: msg.get });
-      }
-    );
-  });
 };
 
 //----------------searchByDate----------------
@@ -238,28 +289,36 @@ exports.searchByDate = (req, res) => {
 //value: valor del campo a eliminar ej(123)
 //body: todo el objeto nuevo a actualizar
 exports.update = (req, res) => {
-  req.getConnection((err, conn) => {
-    if (err) return res.send(err);
-    conn.query(
-      "UPDATE " + req.params.tabla + " set ? WHERE " + req.params.name + " = ?",
-      [req.body, req.params.value],
-      (err, rows) => {
-        console.log(
-          err
-            ? "Err UPDATE " +
-            req.params.tabla +
-            " set ? WHERE " +
-            req.params.name +
-            " = " +
-            req.params.value +
-            " " +
-            err
-            : req.params.tabla + " Update!"
+  //verificar si el token es valido
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      req.getConnection((err, conn) => {
+        if (err) return res.send(err);
+        conn.query(
+          "UPDATE " + req.params.tabla + " set ? WHERE " + req.params.name + " = ?",
+          [req.body, req.params.value],
+          (err, rows) => {
+            console.log(
+              err
+                ? "Err UPDATE " +
+                req.params.tabla +
+                " set ? WHERE " +
+                req.params.name +
+                " = " +
+                req.params.value +
+                " " +
+                err
+                : req.params.tabla + " Update!"
+            );
+            res.json(err ? { err: msg.errUpdate } : { msg: msg.update });
+          }
         );
-        res.json(err ? { err: msg.errUpdate } : { msg: msg.update });
-      }
-    );
-  });
+      });
+    }
+  })
+
 };
 
 //----------------getData----------------
