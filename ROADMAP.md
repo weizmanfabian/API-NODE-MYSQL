@@ -131,8 +131,9 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ## Fase 4 — Documentación y cierre
 
-- [ ] Actualizar `README.md` (instrucciones de instalación y conexiones)
-- [ ] Completar `WIKI.md` (arquitectura, modelo de datos, endpoints, pruebas)
+- [x] Actualizar `README.md` (instrucciones de instalación y conexiones)
+- [x] Completar `WIKI.md` (arquitectura, modelo de datos, endpoints, pruebas)
 - [ ] Actualizar `testing/peticion.http`
+- [ ] `chore(deps)`: actualizar dependencias y resolver vulnerabilidades
 - [ ] Revisión final con quality gates
 - [ ] Pull Request
