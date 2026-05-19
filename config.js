@@ -1,6 +1,7 @@
 // Configuración de la aplicación a partir de variables de entorno.
 // Los valores se cargan desde el archivo .env (ver .env.example).
-require('dotenv').config();
+// `quiet` silencia el banner que dotenv imprime al cargar.
+require('dotenv').config({ quiet: true });
 
 const DEFAULT_SERVER_PORT = 5000;
 const DEFAULT_DB_PORT = 3306;
