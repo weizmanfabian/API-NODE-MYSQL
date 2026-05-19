@@ -1,8 +1,10 @@
 const express = require('express')
-const { login } = require('../controllers/auth.controller')
+const { login, resetPassword } = require('../controllers/auth.controller')
+const authenticate = require('../middlewares/authenticate.middleware')
 const router = express.Router()
 
 router.post('/login', login)
-//router.post('/create/:tabla', defaultController.create)
+
+router.put('/reset-password', authenticate, resetPassword)
 
 module.exports = router

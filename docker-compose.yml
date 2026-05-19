@@ -1,0 +1,52 @@
+# Orquestación de servicios para desarrollo local.
+# `docker compose up` levanta la base de datos y la API juntas.
+# Para desarrollar el backend en local, levantar solo la BD: `docker compose up db`.
+# Las variables se leen del archivo .env (ver .env.example).
+
+services:
+  db:
+    image: mysql:8.4
+    container_name: api-node-mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-node-mysql-app
+    restart: unless-stopped
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      CLIENT_URL: ${CLIENT_URL}
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:

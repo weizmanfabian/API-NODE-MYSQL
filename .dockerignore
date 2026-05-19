@@ -1,0 +1,19 @@
+# Dependencias (se instalan dentro de la imagen)
+node_modules
+npm-debug.log
+
+# Variables de entorno y secretos
+.env
+.env.local
+
+# Control de versiones
+.git
+.gitignore
+
+# Documentación y pruebas (no se necesitan en la imagen)
+*.md
+testing/
+
+# Logs y artefactos
+*.log
+logs/
