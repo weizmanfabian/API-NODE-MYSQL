@@ -1,5 +1,6 @@
 # Orquestación de servicios para desarrollo local.
-# Fase 1: solo la base de datos. El backend se agregará en la Fase 3.
+# `docker compose up` levanta la base de datos y la API juntas.
+# Para desarrollar el backend en local, levantar solo la BD: `docker compose up db`.
 # Las variables se leen del archivo .env (ver .env.example).
 
 services:
@@ -23,6 +24,29 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-node-mysql-app
+    restart: unless-stopped
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      CLIENT_URL: ${CLIENT_URL}
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:

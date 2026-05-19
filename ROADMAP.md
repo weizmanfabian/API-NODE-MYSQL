@@ -19,7 +19,7 @@ que levanta BD + API.
 
 ## Estado actual
 
-- **Fase en curso:** Fase 3 — Dockerizar el backend
+- **Fase en curso:** Fase 4 — Documentación y cierre
 - **Última actualización:** 2026-05-19
 
 ## Diagnóstico inicial (hallazgos)
@@ -123,11 +123,11 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ## Fase 3 — Dockerizar el backend
 
-- [ ] Crear `Dockerfile` multi-stage (`node:24-alpine`, usuario no-root)
-- [ ] Agregar servicio `api` al `docker-compose.yml`
-- [ ] Configurar `depends_on` con `healthcheck` de la BD
-- [ ] Verificar: `docker compose up` levanta BD + API juntos
-- [ ] Commit de la Fase 3
+- [x] Crear `Dockerfile` multi-stage (`node:24-alpine`, usuario no-root)
+- [x] Agregar servicio `api` al `docker-compose.yml`
+- [x] Configurar `depends_on` con `healthcheck` de la BD
+- [x] Verificar: `docker compose up` levanta BD + API juntos
+- [x] Commit de la Fase 3
 
 ## Fase 4 — Documentación y cierre
 
