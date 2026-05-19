@@ -72,24 +72,47 @@ que levanta BD + API.
 
 ## Fase 2 — Refactor del backend
 
-- [ ] Mover configuración a variables de entorno (`dotenv`)
+Dividida en commits atómicos; cada uno deja la app en estado funcional.
+Estructura final por capas: `routes → controllers → services → repository → middleware`.
+
+### Commit 1 — `chore`: limpieza
+
+- [x] Eliminar código muerto (`login1`, `login2`, `imgController`, `img.route.js`)
+- [x] Eliminar dependencias sin uso de `package.json`
+- [x] Corregir `npm scripts` (`start` = node, `dev` = nodemon) y `main`
+
+### Commit 2 — `refactor(config)`: configuración por entorno
+
+- [ ] Mover configuración a variables de entorno con `dotenv`
 - [ ] Eliminar credenciales y secreto JWT hardcodeados
-- [ ] Migrar a pool de `mysql2/promise`
-- [ ] Estructurar en capas: `routes → controllers → services → repository → middleware`
+
+### Commit 3 — `refactor(db)`: capa de acceso a datos
+
+- [ ] Migrar de `express-myconnection` a pool de `mysql2/promise`
+- [ ] Introducir la capa `repository`
+
+### Commit 4 — `feat`: validación por metadata
+
 - [ ] Implementar `SchemaRepository` (consulta a `INFORMATION_SCHEMA`)
 - [ ] Implementar `SchemaValidatorService` (validación + caché con TTL)
+
+### Commit 5 — `feat`: manejo de excepciones
+
 - [ ] Crear jerarquía de errores de dominio
 - [ ] Crear middleware de manejo de errores centralizado
 - [ ] Crear `asyncHandler` y aplicarlo a los controladores
 - [ ] Agregar logger dedicado (reemplazar `console.log`)
 - [ ] Agregar handlers globales (`unhandledRejection`, `uncaughtException`) y 404
-- [ ] Corregir el bug de `login`
-- [ ] Hashear contraseñas con `bcrypt`
-- [ ] Eliminar código muerto
-- [ ] Limpiar dependencias sin uso en `package.json`
-- [ ] Corregir `npm scripts` (`start` = node, `dev` = nodemon)
+
+### Commit 6 — `fix(auth)`: autenticación
+
+- [ ] Corregir el bug de `login` (token solo con credenciales válidas)
+- [ ] Hashear contraseñas con `bcryptjs` (pure JS, sin build nativo en Docker)
+- [ ] Cargar el secreto JWT desde variables de entorno
+
+### Cierre de fase
+
 - [ ] Verificar: la API funciona contra la BD dockerizada con `npm start`
-- [ ] Commit(s) de la Fase 2
 
 ## Fase 3 — Dockerizar el backend
 

@@ -1,4 +1,3 @@
-const express = require("express");
 const msg = require("./msgController");
 const jwt = require('jsonwebtoken');
 
