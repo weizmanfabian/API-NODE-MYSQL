@@ -88,8 +88,10 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ### Commit 3 — `refactor(db)`: capa de acceso a datos
 
-- [ ] Migrar de `express-myconnection` a pool de `mysql2/promise`
-- [ ] Introducir la capa `repository`
+- [x] Crear el pool de conexiones `mysql2/promise`
+- [x] Crear `generic.repository.js` (CRUD parametrizado con `??` y `?`)
+- [x] Migrar `default.controller` al repositorio con async/await
+- [x] Eliminar `searchByDate` y `getData` (código muerto sin ruta)
 
 ### Commit 4 — `feat`: validación por metadata
 
@@ -106,9 +108,11 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ### Commit 6 — `fix(auth)`: autenticación
 
+- [ ] Migrar `login` al repositorio y retirar `express-myconnection`
 - [ ] Corregir el bug de `login` (token solo con credenciales válidas)
+- [ ] Mover `verifyToken` a un middleware dedicado
 - [ ] Hashear contraseñas con `bcryptjs` (pure JS, sin build nativo en Docker)
-- [ ] Cargar el secreto JWT desde variables de entorno
+- [x] Cargar el secreto JWT desde variables de entorno (hecho en el Commit 2)
 
 ### Cierre de fase
 
