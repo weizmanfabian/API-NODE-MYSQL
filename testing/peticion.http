@@ -1,37 +1,60 @@
-//  COMENTARIO CRUD DESDE TERMINAL. Ext: REST Client. Instalar en visual studio code.
-// crear archivo de prueba con la extension .http
+# Peticiones de ejemplo para la API.
+# Requiere la extensión REST Client de VS Code: clic en "Send Request".
+# Ejecutar primero el login: captura el token para las demás peticiones.
 
-###
-GET http://localhost:5000/server/searchBy/usu/usu_id/545704
+@host = http://localhost:5000
 
-###
-POST http://localhost:5000/server/create/rol HTTP/1.1
+### Login — autentica y captura el token
+# @name login
+POST {{host}}/auth/login
 Content-Type: application/json
-
-{  
-  "rol_nom": "two Rol",
-  "rol_dscr": "Prueba 2"
-}
-
-###
-PUT  http://localhost:5000/server/update/rol/rol_id/234 HTTP/1.1
-content-type: application/json
 
 {
-  "rol_nom": "two Rol",
-  "rol_dscr": "Prueba two"
-}
-
-###
-DELETE http://localhost:5000/server/delete/rol/rol_id/233 HTTP/1.1
-
-
-//login
-
-###
-POST http://localhost:5000/login HTTP/1.1
-Content-Type: application/json
-{  
-  "user": "32",
+  "user": "weizman@example.com",
   "pass": "Colombia2020*"
 }
+
+### Token tomado de la respuesta del login
+@token = {{login.response.body.token}}
+
+### Restablecer la contraseña de un usuario (requiere token)
+PUT {{host}}/auth/reset-password
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "carlos@example.com",
+  "newPass": "NuevaClave123*"
+}
+
+### Crear un registro
+POST {{host}}/server/create/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Nuevo Usuario",
+  "email": "nuevo@example.com",
+  "pass": "Clave123*"
+}
+
+### Listar todos los registros de una tabla
+GET {{host}}/server/findAll/users
+Authorization: Bearer {{token}}
+
+### Buscar registros por un campo
+GET {{host}}/server/searchBy/users/email/ana@example.com
+Authorization: Bearer {{token}}
+
+### Actualizar un registro
+PUT {{host}}/server/update/users/email/nuevo@example.com
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Usuario Actualizado"
+}
+
+### Eliminar un registro
+DELETE {{host}}/server/delete/users/email/nuevo@example.com
+Authorization: Bearer {{token}}
