@@ -1,10 +1,8 @@
 const express = require("express");
-const mysql = require("mysql2");
 const cors = require("cors");
 const path = require("path");
-const myconn = require("express-myconnection");
 
-const { corsSetting, db, port } = require("./config");
+const { corsSetting, port } = require("./config");
 const logger = require("./src/utils/logger");
 const notFound = require("./src/middlewares/not-found.middleware");
 const errorHandler = require("./src/middlewares/error-handler.middleware");
@@ -16,9 +14,6 @@ app.use(cors(corsSetting));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Conexión a base de datos (login aún usa express-myconnection; se retira en el Commit 6)
-app.use(myconn(mysql, db, "single"));
 
 app.use(express.static(path.join(__dirname, "./public")));
 

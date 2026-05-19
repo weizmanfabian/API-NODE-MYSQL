@@ -19,7 +19,7 @@ que levanta BD + API.
 
 ## Estado actual
 
-- **Fase en curso:** Fase 2 — Refactor del backend
+- **Fase en curso:** Fase 3 — Dockerizar el backend
 - **Última actualización:** 2026-05-19
 
 ## Diagnóstico inicial (hallazgos)
@@ -112,14 +112,14 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ### Commit 6 — `fix(auth)`: autenticación
 
-- [ ] Migrar `login` al repositorio y retirar `express-myconnection`
-- [ ] Corregir el bug de `login` (token solo con credenciales válidas)
-- [ ] Hashear contraseñas con `bcryptjs` (pure JS, sin build nativo en Docker)
+- [x] Migrar `login` al repositorio y retirar `express-myconnection`
+- [x] Corregir el bug de `login` (token solo con credenciales válidas)
+- [x] Hashear contraseñas con `bcryptjs` (pure JS, sin build nativo en Docker)
 - [x] Cargar el secreto JWT desde variables de entorno (hecho en el Commit 2)
 
 ### Cierre de fase
 
-- [ ] Verificar: la API funciona contra la BD dockerizada con `npm start`
+- [x] Verificar: la API funciona contra la BD dockerizada con `npm start`
 
 ## Fase 3 — Dockerizar el backend
 
