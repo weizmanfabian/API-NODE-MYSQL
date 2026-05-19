@@ -19,7 +19,7 @@ que levanta BD + API.
 
 ## Estado actual
 
-- **Fase en curso:** Fase 1 — Base de datos dockerizada
+- **Fase en curso:** Fase 2 — Refactor del backend
 - **Última actualización:** 2026-05-19
 
 ## Diagnóstico inicial (hallazgos)
@@ -62,13 +62,13 @@ que levanta BD + API.
 
 ## Fase 1 — Base de datos dockerizada
 
-- [ ] Crear `db/sql/create_schema.sql` (tabla `users`)
-- [ ] Crear `db/sql/data.sql` (usuarios de ejemplo)
-- [ ] Crear `docker-compose.yml` con servicio `db` (MySQL 8.4)
-- [ ] Configurar volumen persistente y `healthcheck` del servicio `db`
-- [ ] Montar `db/sql/` en `/docker-entrypoint-initdb.d`
-- [ ] Verificar: `docker compose up` levanta la BD y carga schema + datos
-- [ ] Commit de la Fase 1
+- [x] Crear `db/sql/create_schema.sql` (tabla `users`)
+- [x] Crear `db/sql/data.sql` (usuarios de ejemplo)
+- [x] Crear `docker-compose.yml` con servicio `db` (MySQL 8.4)
+- [x] Configurar volumen persistente y `healthcheck` del servicio `db`
+- [x] Montar `db/sql/` en `/docker-entrypoint-initdb.d`
+- [x] Verificar: `docker compose up` levanta la BD y carga schema + datos
+- [x] Commit de la Fase 1
 
 ## Fase 2 — Refactor del backend
 
