@@ -135,5 +135,5 @@ Estructura final por capas: `routes → controllers → services → repository 
 - [x] Completar `WIKI.md` (arquitectura, modelo de datos, endpoints, pruebas)
 - [x] Actualizar `testing/peticion.http`
 - [x] `chore(deps)`: actualizar dependencias y resolver vulnerabilidades
-- [ ] Revisión final con quality gates
+- [x] Revisión final con quality gates
 - [ ] Pull Request

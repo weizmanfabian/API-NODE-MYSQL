@@ -47,9 +47,8 @@ exports.searchBy = asyncHandler(async (req, res) => {
   const { tabla, name, value } = req.params;
   const rows = await genericService.buscarRegistros(tabla, name, value);
   logger.info(`${rows.length} registros encontrados en ${tabla} donde ${name} = ${value}`);
-  msg.get.title = describeResultCount(rows.length);
-  msg.get.icon = 'info';
-  res.json({ rows, msg: msg.get });
+  const resultado = { ...msg.get, icon: 'info', title: describeResultCount(rows.length) };
+  res.json({ rows, msg: resultado });
 });
 
 //----------------update----------------

@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 
 const { corsSetting, port } = require("./config");
 const logger = require("./src/utils/logger");
@@ -14,8 +13,6 @@ app.use(cors(corsSetting));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(express.static(path.join(__dirname, "./public")));
 
 // Rutas
 app.use("/auth", require("./src/routes/auth.route"));
