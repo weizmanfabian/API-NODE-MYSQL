@@ -42,16 +42,3 @@ exports.login = (req, res) => {
     );
   });
 };
-
-//Authorization: Bearer <token>
-exports.verifyToken = (req, res, next) => {
-  let bearerHeader = req.headers['authorization']
-  //verificar si el token existe
-  if (typeof bearerHeader !== 'undefined') {
-    bearerToken = bearerHeader.split(" ")[1]
-    req.token = bearerToken;
-    next();
-  } else {
-    res.sendStatus(404)
-  }
-}

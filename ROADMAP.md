@@ -93,24 +93,27 @@ Estructura final por capas: `routes → controllers → services → repository 
 - [x] Migrar `default.controller` al repositorio con async/await
 - [x] Eliminar `searchByDate` y `getData` (código muerto sin ruta)
 
-### Commit 4 — `feat`: validación por metadata
+### Commit 4 — `feat(errors)`: manejo de excepciones
 
-- [ ] Implementar `SchemaRepository` (consulta a `INFORMATION_SCHEMA`)
-- [ ] Implementar `SchemaValidatorService` (validación + caché con TTL)
+- [x] Crear jerarquía de errores de dominio
+- [x] Agregar logger dedicado (reemplazar `console.log`)
+- [x] Crear `asyncHandler`
+- [x] Crear middleware de manejo de errores centralizado y de 404
+- [x] Agregar handlers globales (`unhandledRejection`, `uncaughtException`)
+- [x] Crear middleware de autenticación (`verifyToken` deja de estar inline)
+- [x] Envolver los errores de `mysql2` en errores de dominio (repositorio)
+- [x] Refactorizar `default.controller` con `asyncHandler` y errores de dominio
 
-### Commit 5 — `feat`: manejo de excepciones
+### Commit 5 — `feat(validacion)`: validación por metadata
 
-- [ ] Crear jerarquía de errores de dominio
-- [ ] Crear middleware de manejo de errores centralizado
-- [ ] Crear `asyncHandler` y aplicarlo a los controladores
-- [ ] Agregar logger dedicado (reemplazar `console.log`)
-- [ ] Agregar handlers globales (`unhandledRejection`, `uncaughtException`) y 404
+- [ ] Implementar `schema.repository.js` (consulta a `INFORMATION_SCHEMA`)
+- [ ] Implementar `schema-validator.service.js` (validación + caché con TTL)
+- [ ] Agregar la capa de servicio que valida y delega al repositorio
 
 ### Commit 6 — `fix(auth)`: autenticación
 
 - [ ] Migrar `login` al repositorio y retirar `express-myconnection`
 - [ ] Corregir el bug de `login` (token solo con credenciales válidas)
-- [ ] Mover `verifyToken` a un middleware dedicado
 - [ ] Hashear contraseñas con `bcryptjs` (pure JS, sin build nativo en Docker)
 - [x] Cargar el secreto JWT desde variables de entorno (hecho en el Commit 2)
 

@@ -2,20 +2,16 @@ const express = require('express')
 const router = express.Router()
 
 const defaultController = require('../controllers/default.controller')
-const { verifyToken } = require('../controllers/auth.controller')
+const authenticate = require('../middlewares/authenticate.middleware')
 
-router.post('/create/:tabla', verifyToken, defaultController.create)
+router.post('/create/:tabla', authenticate, defaultController.create)
 
-router.delete('/delete/:tabla/:name/:value', verifyToken, defaultController.delete)
+router.delete('/delete/:tabla/:name/:value', authenticate, defaultController.delete)
 
-router.get('/findAll/:tabla', verifyToken, defaultController.findAll)
+router.get('/findAll/:tabla', authenticate, defaultController.findAll)
 
-//router.get('/getData/:sql', defaultController.getData)
+router.get('/searchBy/:tabla/:name/:value', authenticate, defaultController.searchBy)
 
-router.get('/searchBy/:tabla/:name/:value', verifyToken, defaultController.searchBy)
-
-//router.get('/searchByDate/:tabla/:nameFecha/:fechaIni/:fechaFin/:adicional1/:nameAdicional1/:type1/:valueAdicional1/:adicional2/:nameAdicional2/:type2/:valueAdicional2/:adicional3/:nameAdicional3/:type3/:valueAdicional3/:adicional4/:nameAdicional4/:type4/:valueAdicional4', defaultController.searchByDate)
-
-router.put('/update/:tabla/:name/:value', verifyToken, defaultController.update)
+router.put('/update/:tabla/:name/:value', authenticate, defaultController.update)
 
 module.exports = router
