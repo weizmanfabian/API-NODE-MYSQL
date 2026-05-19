@@ -106,9 +106,9 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ### Commit 5 — `feat(validacion)`: validación por metadata
 
-- [ ] Implementar `schema.repository.js` (consulta a `INFORMATION_SCHEMA`)
-- [ ] Implementar `schema-validator.service.js` (validación + caché con TTL)
-- [ ] Agregar la capa de servicio que valida y delega al repositorio
+- [x] Implementar `schema.repository.js` (consulta a `INFORMATION_SCHEMA`)
+- [x] Implementar `schema-validator.service.js` (validación + caché con TTL)
+- [x] Agregar la capa de servicio que valida y delega al repositorio
 
 ### Commit 6 — `fix(auth)`: autenticación
 
