@@ -4,11 +4,18 @@ const config = require('../../config');
 const asyncHandler = require('../utils/async-handler');
 const logger = require('../utils/logger');
 const userRepository = require('../repositories/user.repository');
-const { SolicitudInvalidaError, NoAutorizadoError } = require('../errors');
+const {
+  SolicitudInvalidaError,
+  NoAutorizadoError,
+  RecursoNoEncontradoError,
+} = require('../errors');
 
 // Mensaje genérico: no revela si falló el usuario o la contraseña,
 // para no facilitar la enumeración de usuarios.
 const CREDENCIALES_INVALIDAS = 'Credenciales inválidas';
+
+// Costo del hash bcrypt (mismo factor con el que se generaron los datos semilla).
+const SALT_ROUNDS = 10;
 
 // Genera un token JWT con los datos públicos del usuario (sin la contraseña).
 const generarToken = (usuario) => {
@@ -41,4 +48,26 @@ exports.login = asyncHandler(async (req, res) => {
 
   logger.info(`Inicio de sesión exitoso: ${usuario.email}`);
   res.json({ token: generarToken(usuario) });
+});
+
+//----------------resetPassword----------------
+// Restablece la contraseña de un usuario. Requiere autenticación.
+// email: email del usuario a actualizar
+// newPass: nueva contraseña en texto plano
+exports.resetPassword = asyncHandler(async (req, res) => {
+  const { email, newPass } = req.body;
+  if (!email || !newPass) {
+    throw new SolicitudInvalidaError('El email y la nueva contraseña son requeridos');
+  }
+
+  const usuario = await userRepository.findByEmail(email);
+  if (!usuario) {
+    throw new RecursoNoEncontradoError(`No existe un usuario con el email '${email}'`);
+  }
+
+  const passwordHash = await bcrypt.hash(newPass, SALT_ROUNDS);
+  await userRepository.updatePassword(email, passwordHash);
+
+  logger.info(`Contraseña restablecida para ${email}`);
+  res.json({ msg: 'Contraseña actualizada correctamente' });
 });

@@ -14,6 +14,17 @@ const findByEmail = async (email) => {
   }
 };
 
+// Actualiza la contraseña (hash) de un usuario identificado por su email.
+const updatePassword = async (email, passwordHash) => {
+  try {
+    await pool.query('UPDATE users SET pass = ? WHERE email = ?', [passwordHash, email]);
+  } catch (error) {
+    logger.error('Error actualizando la contraseña del usuario', error);
+    throw new ErrorBaseDatos();
+  }
+};
+
 module.exports = {
   findByEmail,
+  updatePassword,
 };
