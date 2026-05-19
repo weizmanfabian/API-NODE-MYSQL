@@ -1,2 +1,19 @@
-#Ingnorando todos los node_modules en cualquier directorio
-**/node_modules/*
+# Dependencias
+**/node_modules/
+
+# Variables de entorno (nunca versionar secretos)
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Archivos subidos en tiempo de ejecución
+public/imgVentas/
+
+# Artefactos de sistema operativo / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
