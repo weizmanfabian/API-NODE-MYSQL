@@ -83,8 +83,8 @@ Estructura final por capas: `routes → controllers → services → repository 
 
 ### Commit 2 — `refactor(config)`: configuración por entorno
 
-- [ ] Mover configuración a variables de entorno con `dotenv`
-- [ ] Eliminar credenciales y secreto JWT hardcodeados
+- [x] Mover configuración a variables de entorno con `dotenv`
+- [x] Eliminar credenciales y secreto JWT hardcodeados
 
 ### Commit 3 — `refactor(db)`: capa de acceso a datos
 

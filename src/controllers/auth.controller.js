@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const config = require('../../config')
 
 //----------------login----------------
 //parametros
@@ -32,7 +33,7 @@ exports.login = (req, res) => {
         //generate token
         jwt.sign({
           user: result[0]
-        }, 'secretkey', { expiresIn: '5m' }, (err, token) => {
+        }, config.jwt.secret, { expiresIn: config.jwt.expiresIn }, (err, token) => {
           res.json({
             token
           })

@@ -1,5 +1,6 @@
 const msg = require("./msgController");
 const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 
 //----------------create----------------
@@ -8,7 +9,7 @@ const jwt = require('jsonwebtoken');
 //body: todo el objeto que quiere insertar
 exports.create = (req, res) => {
   //verificar si el token es valido
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, config.jwt.secret, (err, authData) => {
     if (err) {
       res.sendStatus(403)
     } else {
@@ -37,7 +38,7 @@ exports.create = (req, res) => {
 //value: valor del campo a eliminar ej(123)
 exports.delete = (req, res) => {
   //verificar si el token es valido
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, config.jwt.secret, (err, authData) => {
     if (err) {
       res.sendStatus(403)
     } else {
@@ -77,7 +78,7 @@ exports.delete = (req, res) => {
 //tabla: para saber cual tabla afectará
 exports.findAll = (req, res) => {
   //verificar si el token es valido
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, config.jwt.secret, (err, authData) => {
     if (err) {
       res.sendStatus(403)
     } else {
@@ -105,7 +106,7 @@ exports.findAll = (req, res) => {
 //value: valor del campo a consultar ej(123)
 exports.searchBy = (req, res) => {
   //verificar si el token es valido
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, config.jwt.secret, (err, authData) => {
     if (err) {
       res.sendStatus(403)
     } else {
@@ -289,7 +290,7 @@ exports.searchByDate = (req, res) => {
 //body: todo el objeto nuevo a actualizar
 exports.update = (req, res) => {
   //verificar si el token es valido
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, config.jwt.secret, (err, authData) => {
     if (err) {
       res.sendStatus(403)
     } else {

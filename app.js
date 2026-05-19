@@ -5,7 +5,7 @@ const path = require("path")
 
 const myconn = require("express-myconnection");
 
-const { corsSetting, connectionDataBase, portServer } = require("./config");
+const { corsSetting, db, port } = require("./config");
 
 const app = express();
 
@@ -16,14 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Conexion a base de datos
-app.use(myconn(mysql, connectionDataBase, "single"));
+app.use(myconn(mysql, db, "single"));
 
 app.use(express.static(path.join(__dirname, './public'))); // ruote public server
 
 //Puerto
-app.set("port", portServer);
-app.listen(portServer, () => {
-  console.log("server running on port", portServer);
+app.set("port", port);
+app.listen(port, () => {
+  console.log("server running on port", port);
 });
 
 app.use("/auth", require("./src/routes/auth.route"))
